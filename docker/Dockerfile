@@ -3,11 +3,11 @@ FROM php:8.1.1-fpm
 ARG UID
 
 # Create user with same permissions as host and some useful stuff
-RUN adduser -u ${UID} --disabled-password --gecos "" appuser
-RUN mkdir /home/appuser/.ssh
-RUN chown -R appuser:appuser /home/appuser/
-RUN echo "StrictHostKeyChecking no" >> /home/appuser/.ssh/config
-RUN echo "alias sf=/appdata/www/bin/console" >> /home/appuser/.bashrc
+RUN adduser -u ${UID} --disabled-password --gecos "" sescallada
+RUN mkdir /home/sescallada/.ssh
+RUN chown -R sescallada:sescallada /home/sescallada/
+RUN echo "StrictHostKeyChecking no" >> /home/sescallada/.ssh/config
+RUN echo "alias sf=/sescallada/www/bin/console" >> /home/sescallada/.bashrc
 
 # Install packages and PHP extensions
 RUN apt update \
@@ -30,9 +30,9 @@ RUN composer self-update
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
 RUN apt install symfony-cli
 
-RUN mkdir -p /appdata/www
+RUN mkdir -p /sescallada/www
 
 # Config XDEBUG
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-WORKDIR /appdata/www
+WORKDIR /sescallada/www
